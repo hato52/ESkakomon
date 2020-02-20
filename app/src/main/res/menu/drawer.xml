@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+<!--        <item-->
+<!--            android:id="@+id/drawer_item1"-->
+<!--            android:icon="@android:drawable/ic_menu_recent_history"-->
+<!--            android:title="記録" />-->
+
+        <item
+            android:id="@+id/drawer_item2"
+            android:icon="@drawable/miss"
+            android:title="間違えた問題" />
+
+        <item
+            android:id="@+id/drawer_item3"
+            android:icon="@drawable/check"
+            android:title="チェックした問題" />
+
+        <item
+            android:id="@+id/drawer_item4"
+            android:icon="@drawable/licence"
+            android:title="ライセンス" />
+    </group>
+</menu>

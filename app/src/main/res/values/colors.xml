@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FFC107</color>
+    <color name="colorPrimaryDark">#FF9800</color>
+    <color name="colorAccent">#FF5722</color>
+
+    <color name="colorMarginAccent">#E0E0E0</color>
+    <color name="colorMargin">#EEEEEE</color>
+</resources>

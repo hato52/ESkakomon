@@ -1,0 +1,38 @@
+<resources>
+    <string name="app_name">ES過去問</string>
+
+    <string-array name="q_range">
+        <item>全ての問題から</item>
+        <item>過去に間違えた問題から</item>
+        <item>チェックした問題から</item>
+    </string-array>
+
+    <string-array name="q_num">
+        <item>5問</item>
+        <item>10問</item>
+        <item>15問</item>
+        <item>20問</item>
+        <item>全問</item>
+    </string-array>
+
+    <string-array name="q_is_random">
+        <item>ランダムに出題</item>
+        <item>問題番号順に出題</item>
+    </string-array>
+
+    <string name="years_all">全年度から出題</string>
+    <string name="year_31">平成31年度　春期問題　午前Ⅱ</string>
+    <string name="year_30">平成30年度　春期問題　午前Ⅱ</string>
+    <string name="year_29">平成29年度　春期問題　午前Ⅱ</string>
+    <string name="year_28">平成28年度　春期問題　午前Ⅱ</string>
+    <string name="year_27">平成27年度　春期問題　午前Ⅱ</string>
+    <string name="year_26">平成26年度　春期問題　午前Ⅱ</string>
+    <string name="year_25">平成25年度　春期問題　午前Ⅱ</string>
+    <string name="year_24">平成24年度　春期問題　午前Ⅱ</string>
+    <string name="year_23">平成23年度　春期問題　午前Ⅱ</string>
+    <string name="year_22">平成22年度　春期問題　午前Ⅱ</string>
+    <string name="year_21">平成21年度　春期問題　午前Ⅱ</string>
+
+    <string name="text_back">&lt;&lt;</string>
+    <string name="text_next">&gt;&gt;</string>
+</resources>
