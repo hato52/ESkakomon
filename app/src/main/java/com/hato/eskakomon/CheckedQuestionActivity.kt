@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hato.eskakomon.model.Question
 import io.realm.Realm
+import kotlinx.android.synthetic.main.activity_checked_question.*
 import kotlinx.android.synthetic.main.activity_missed_question.*
 
 class CheckedQuestionActivity : AppCompatActivity() {
@@ -20,7 +21,13 @@ class CheckedQuestionActivity : AppCompatActivity() {
 
         // チェックした問題を取得
         realm = Realm.getDefaultInstance()
-        val results = realm.where(Question::class.java).equalTo("check", 1.toInt()).findAll()
+        val results = realm.where(Question::class.java)
+            .equalTo("check", 1.toInt())
+            .findAll()
+
+        if (results.size != 0) {    // 問題が存在するかどうかの表示切り替え
+            check_is_exist.visibility = View.INVISIBLE
+        }
 
         val yearArray = IntArray(results.size)
         val numArray = IntArray(results.size)

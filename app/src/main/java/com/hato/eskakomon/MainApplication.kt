@@ -10,7 +10,7 @@ class MainApplication : Application() {
         // Realm初期設定
         Realm.init(this)
         val config = RealmConfiguration.Builder().build()
-        Realm.deleteRealm(config)   // 開発用
+//        Realm.deleteRealm(config)   // 開発用
         Realm.setDefaultConfiguration(config)
     }
 }

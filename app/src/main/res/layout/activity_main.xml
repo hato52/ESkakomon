@@ -31,23 +31,23 @@
                 android:id="@+id/title1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
                 android:text="問題設定"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent"/>
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/q_range"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/title1"
                 android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
                 android:text="出題範囲"
-                android:textSize="16sp" />
+                android:textSize="12sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title1" />
 
             <Spinner
                 android:id="@+id/spinner_range"
@@ -63,10 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginRight="16dp"
                 android:background="@color/colorMargin"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -77,10 +75,10 @@
                 android:id="@+id/q_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="出題数"
-                android:textSize="16sp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
+                android:text="出題数"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vertical_line" />
 
@@ -99,7 +97,7 @@
                 android:layout_height="1dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginLeft="16dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginRight="16dp"
                 android:background="@color/colorMargin"
@@ -112,10 +110,10 @@
                 android:id="@+id/q_is_random"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:text="出題方法"
-                android:textSize="16sp"
                 android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
+                android:text="出題方法"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/vertical_line2" />
 
@@ -132,7 +130,7 @@
                 android:id="@+id/vertical_line3"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="8dp"
                 android:background="@color/colorMarginAccent"
                 android:visibility="visible"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -144,11 +142,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vertical_line3"
                 android:text="出題年度"
-                android:textSize="20sp"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/colorAccent"
+                android:textSize="16sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vertical_line3" />
 
             <ScrollView
                 android:layout_width="match_parent"

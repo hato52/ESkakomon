@@ -24,6 +24,10 @@ class MissedQuestionActivity : AppCompatActivity() {
             .equalTo("miss", 1.toInt())
             .findAll()
 
+        if (results.size != 0) {    // 問題が存在するかどうかの表示切り替え
+            miss_is_exist.visibility = View.INVISIBLE
+        }
+
         val yearArray = IntArray(results.size)
         val numArray = IntArray(results.size)
         for (i in 0..(results.size - 1)) {
@@ -33,7 +37,7 @@ class MissedQuestionActivity : AppCompatActivity() {
 
         // RecyclerView
         val adapter = SelectedQuestionListAdapter(yearArray, numArray, 0)
-        val recyclerView: RecyclerView = checked_list
+        val recyclerView: RecyclerView = missed_list
         recyclerView.layoutManager = LinearLayoutManager(this)  // LayoutManagerをセット
         recyclerView.adapter = adapter
 

@@ -14,15 +14,15 @@
 
     <ImageView
         android:id="@+id/vertical_line"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="84dp"
+        android:layout_height="84dp"
         android:contentDescription="Navigation header"
         android:paddingTop="8dp"
-        app:srcCompat="@android:drawable/sym_def_app_icon" />
+        app:srcCompat="@drawable/es_icon" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="8dp"
-        android:text="ES午前2過去問" />
+        android:text="エンベデッドシステムスペシャリスト 午前Ⅱ 過去問" />
 </LinearLayout>

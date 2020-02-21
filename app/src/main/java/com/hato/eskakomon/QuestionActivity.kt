@@ -9,6 +9,7 @@ import android.util.Log
 import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.hato.eskakomon.model.Question
 import io.realm.Realm
@@ -26,17 +27,17 @@ class QuestionActivity : AppCompatActivity() {
 
         val param: IntArray = intent.getIntArrayExtra("Q_PARAM")
 
-//        param.forEach {
-//            Log.i("[PARAM]", "param = ${it}")
-//        }
-
         qIt = intent.getIntExtra("Q_IT", 0)
 
         // 出題リストの作成
         val results: Array<Question?> = makeQuestionList(param)
-
-        // ビューに問題データを反映
-        bindQuestionToView(results, qIt)
+        if (results.isEmpty()) {
+            Toast.makeText(this, "条件に当てはまる問題がありません", Toast.LENGTH_SHORT).show()
+            finish()
+        } else {
+            // ビューに問題データを反映(elseのなかで処理しないと画面遷移がうまくいかない？)
+            bindQuestionToView(results, qIt)
+        }
 
         // 選択ボタン ア
         button_a.setOnClickListener {
@@ -101,9 +102,6 @@ class QuestionActivity : AppCompatActivity() {
             } catch (e: Exception) {
                 realm.close()
             }
-
-//            Log.i("[REALM]", "H${results[qIt]?.year}年 ${results[qIt]?.number}問")
-//            Log.i("[REALM]", "question = ${results[qIt]?.check}")
         }
     }
 
@@ -283,8 +281,6 @@ class QuestionActivity : AppCompatActivity() {
                 }
             }
         }
-//        Log.i("[REALM]", "H${results[it]?.year}年 ${results[it]?.number}問")
-//        Log.i("[REALM]", "miss = ${results[it]?.check}")
 
         builder.setCustomTitle(titleView)
         builder.setMessage("答え：" + results[it]?.answer + "    (回答：" + ans + ")")
