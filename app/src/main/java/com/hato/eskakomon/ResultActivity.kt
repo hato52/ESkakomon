@@ -7,6 +7,9 @@ import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
+import kotlinx.android.synthetic.main.activity_question.*
 import kotlinx.android.synthetic.main.activity_result.*
 import kotlin.math.round
 
@@ -21,6 +24,10 @@ class ResultActivity : AppCompatActivity() {
         val idArray = intent.getLongArrayExtra("Q_ID")
         val yearArray = intent.getIntArrayExtra("Q_YEAR")
         val numArray = intent.getIntArrayExtra("Q_NUM")
+
+        // Adの表示
+        MobileAds.initialize(this) {}
+        ad_view_result.loadAd(AdRequest.Builder().build())
 
         // ビューの設定
         val correctNum = correctArray.count{ it == 1 }

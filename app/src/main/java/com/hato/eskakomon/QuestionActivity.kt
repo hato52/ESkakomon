@@ -11,6 +11,10 @@ import android.widget.CheckBox
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import com.google.android.gms.ads.AdListener
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.google.android.gms.ads.MobileAds
 import com.hato.eskakomon.model.Question
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_question.*
@@ -26,8 +30,11 @@ class QuestionActivity : AppCompatActivity() {
         setContentView(R.layout.activity_question)
 
         val param: IntArray = intent.getIntArrayExtra("Q_PARAM")
-
         qIt = intent.getIntExtra("Q_IT", 0)
+
+        // Adの表示
+        MobileAds.initialize(this) {}
+        ad_view_question.loadAd(AdRequest.Builder().build())
 
         // 出題リストの作成
         val results: Array<Question?> = makeQuestionList(param)

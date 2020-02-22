@@ -10,17 +10,24 @@
         android:roundIcon="@drawable/es_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".CheckedQuestionActivity"></activity>
+
+        <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1227823838804298~6085621266"/>
+
+        <activity android:name=".CheckedQuestionActivity" />
         <activity android:name=".MissedQuestionActivity" />
         <activity android:name=".QuestionViewActivity" />
         <activity android:name=".ResultActivity" />
         <activity android:name=".QuestionActivity" />
         <activity
             android:name=".MainActivity"
-            android:label="ES過去問"
+            android:label="@string/app_name"
             android:theme="@style/NoActionBarTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.VIEW" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>

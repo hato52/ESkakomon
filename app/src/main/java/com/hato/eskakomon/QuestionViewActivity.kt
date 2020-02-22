@@ -4,6 +4,8 @@ import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hato.eskakomon.model.Question
 import io.realm.Realm
 import io.realm.RealmResults
@@ -20,6 +22,10 @@ class QuestionViewActivity : AppCompatActivity() {
 
         val id = intent.getLongExtra("Q_ID", -1)
         val it = intent.getIntExtra("POS", -1)
+
+        // Adの表示
+        MobileAds.initialize(this) {}
+        ad_view_question_view.loadAd(AdRequest.Builder().build())
 
         realm = Realm.getDefaultInstance()
         val result = realm.where(Question::class.java).equalTo("id", id).findFirst()

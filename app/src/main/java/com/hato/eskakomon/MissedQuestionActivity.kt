@@ -6,9 +6,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.hato.eskakomon.model.Question
 import io.realm.Realm
 import kotlinx.android.synthetic.main.activity_missed_question.*
+import kotlinx.android.synthetic.main.activity_question.*
 
 class MissedQuestionActivity : AppCompatActivity() {
 
@@ -17,6 +20,10 @@ class MissedQuestionActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_missed_question)
+
+        // Adの表示
+        MobileAds.initialize(this) {}
+        ad_view_miss.loadAd(AdRequest.Builder().build())
 
         // 間違えた問題を取得
         realm = Realm.getDefaultInstance()
