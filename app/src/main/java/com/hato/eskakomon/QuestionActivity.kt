@@ -24,6 +24,7 @@ class QuestionActivity : AppCompatActivity() {
     private lateinit var realm: Realm
     private var qIt: Int = 0                            // 出題リスト参照用イテレータ
     private lateinit var correctArray: IntArray         // 回答の正誤リスト(-1:回答なし, 0:不正解, 1:正解)
+    private lateinit var locCheckArray: IntArray        // チェック状態をローカルで管理するリスト
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -101,8 +102,10 @@ class QuestionActivity : AppCompatActivity() {
                 realm.executeTransaction {
                     if (question_check.isChecked) {
                         q?.check = 1
+                        locCheckArray[qIt] = 1
                     } else {
                         q?.check = 0
+                        locCheckArray[qIt] = 0
                     }
                 }
                 realm.close()
@@ -158,6 +161,11 @@ class QuestionActivity : AppCompatActivity() {
 
         // 回答の正誤リストを初期化
         correctArray = IntArray(results.size) { -1 }
+        // チェック状態管理用リストを初期化
+        locCheckArray = IntArray(results.size) { -1 }
+        for (i in 0..results.size-1) {
+            locCheckArray[i] = resultsArray[i]!!.check
+        }
 
         realm.close()
         return resultsArray
@@ -208,9 +216,9 @@ class QuestionActivity : AppCompatActivity() {
         text_q_info.text = "(平成${results[it]?.year}年度 第${results[it]?.number}問)"
 
         // チェック
-        if (results[it]?.check == 1) {
+        if (locCheckArray[it] == 1) {
             question_check.isChecked = true
-        } else if (results[it]?.check == 0) {
+        } else if (locCheckArray[it] == 0) {
             question_check.isChecked = false
         }
 

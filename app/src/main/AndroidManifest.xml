@@ -12,6 +12,7 @@
         android:theme="@style/AppTheme">
 
         <!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+        <!-- My AdMob ID        : ca-app-pub-1227823838804298~2597786484 -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-1227823838804298~2597786484"/>
