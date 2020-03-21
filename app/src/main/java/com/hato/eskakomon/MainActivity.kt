@@ -1,6 +1,8 @@
 package com.hato.eskakomon
 
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -28,21 +30,30 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        // 初回起動確認(開発時は処理を行わない)
+        // 初回起動時処理
         if (!AppLaunchChecker.hasStartedFromLauncher(applicationContext)) {
-            // ダイアログの表示
-            val dialog = AlertDialog.Builder(this).setView(R.layout.load_dialog).create()
-            dialog.setCancelable(false)     // バックボタンを無効化?
-            dialog.show()
+            initialize(true)
+            AppLaunchChecker.onActivityCreate(this) //次回以降処理は行わないようにする
 
-            // 各種データの初期化
-            GlobalScope.launch(Dispatchers.Main) {
-                async(Dispatchers.Default) { initData() }.await().let {
-                    dialog.dismiss()
-                }
+            // バージョン情報の初期化
+            val pref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+            val currentVer = BuildConfig.VERSION_CODE
+            val editor = pref.edit()
+            editor.putInt("version", currentVer)
+            editor.apply()
+        } else {        // バージョンチェック
+            val pref = getSharedPreferences("APP_INFO", Context.MODE_PRIVATE)
+            val currentVer = BuildConfig.VERSION_CODE
+
+            // バージョンが上がっていた時に実行
+            if (currentVer > pref.getInt("version", 0)) {
+                initialize(false)
+
+                // バージョン情報の更新
+                val editor = pref.edit()
+                editor.putInt("version", currentVer)
+                editor.apply()
             }
-            // 初回以降この処理が行われないようにする
-            AppLaunchChecker.onActivityCreate(this)
         }
 
         // チェックボックスの初期設定
@@ -150,8 +161,23 @@ class MainActivity : AppCompatActivity() {
         return selected
     }
 
+    // アプリケーション初期化処理
+    private fun initialize(isFirstLaunch: Boolean) {
+        // ダイアログの表示
+        val dialog = AlertDialog.Builder(this).setView(R.layout.load_dialog).create()
+        dialog.setCancelable(false)     // バックボタンを無効化
+        dialog.show()
+
+        // 各種データの初期化
+        GlobalScope.launch(Dispatchers.Main) {
+            async(Dispatchers.Default) { initData(isFirstLaunch) }.await().let {
+                dialog.dismiss()
+            }
+        }
+    }
+
     // 非同期でCSVデータをDBに取り込む
-    private fun initData() {
+    private fun initData(isFirstLaunch: Boolean) {
         realm = Realm.getDefaultInstance()
 
         // 設定データの初期化
@@ -168,26 +194,47 @@ class MainActivity : AppCompatActivity() {
         val inputStream: InputStream = assets.open("es_kakomon.csv")
         inputStream.bufferedReader().use {
             val csv: String = it.readText()
-            val questions = csv.split(";\r\n")
+            val sentencesList = csv.split(";\r\n")
 
-            questions.forEach { question ->
-                val data: List<String> = question.split(",")
-                try {
-                    realm.executeTransaction {
-                        val question = realm.createObject(Question::class.java, data[0])
-                        question.year = Integer.parseInt(data[1])
-                        question.number = Integer.parseInt(data[2])
-                        question.sentence = data[3]
-                        question.choice_a = data[4]
-                        question.choice_i = data[5]
-                        question.choice_u = data[6]
-                        question.choice_e = data[7]
-                        question.answer = data[8]
-                        question.image_path = data[9]
-                        question.miss = 0
-                        question.check = 0
-                    }
-                } catch (e: Exception) {
+            if (isFirstLaunch) {        // 初回起動時
+                sentencesList.forEach { sentences ->
+                    val data: List<String> = sentences.split(",")
+                    try {
+                        realm.executeTransaction {
+                            val q = realm.createObject(Question::class.java, data[0])
+                            q.year = Integer.parseInt(data[1])
+                            q.number = Integer.parseInt(data[2])
+                            q.sentence = data[3]
+                            q.choice_a = data[4]
+                            q.choice_i = data[5]
+                            q.choice_u = data[6]
+                            q.choice_e = data[7]
+                            q.answer = data[8]
+                            q.image_path = data[9]
+                            q.miss = 0
+                            q.check = 0
+                        }
+                    } catch (e: Exception) {}
+                }
+            } else {        // アプリ更新時
+                val questions = realm.where(Question::class.java).findAll()
+                var i = 0
+                sentencesList.forEach { sentences ->
+                    val data: List<String> = sentences.split(",")
+                    try {
+                        realm.executeTransaction {
+                            questions[i]?.year = Integer.parseInt(data[1])
+                            questions[i]?.number = Integer.parseInt(data[2])
+                            questions[i]?.sentence = data[3]
+                            questions[i]?.choice_a = data[4]
+                            questions[i]?.choice_i = data[5]
+                            questions[i]?.choice_u = data[6]
+                            questions[i]?.choice_e = data[7]
+                            questions[i]?.answer = data[8]
+                            questions[i]?.image_path = data[9]
+                        }
+                    } catch (e: Exception) {}
+                    i++
                 }
             }
         }
