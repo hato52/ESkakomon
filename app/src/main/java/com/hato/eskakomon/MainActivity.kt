@@ -23,8 +23,10 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 class MainActivity : AppCompatActivity() {
 
+    private val NUM_OF_YEARS = 13   /* 問題を追加した際にはここの値も増やす */
+
     private lateinit var realm: Realm
-    private var years: Array<Boolean> = Array(12, {false})      // チェックボックス管理用
+    private var years: Array<Boolean> = Array(NUM_OF_YEARS, {false})      // チェックボックス管理用
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,6 +57,8 @@ class MainActivity : AppCompatActivity() {
                 editor.apply()
             }
         }
+
+//        initialize(true)        // テスト用初期化処理
 
         // チェックボックスの初期設定
         years[0] = true
@@ -126,6 +130,7 @@ class MainActivity : AppCompatActivity() {
             val checked: Boolean = view.isChecked
             when (view.id) {
                 R.id.check_all  -> it = 0
+                R.id.check_32   -> it = 12
                 R.id.check_31   -> it = 11
                 R.id.check_30   -> it = 10
                 R.id.check_29   -> it = 9
@@ -144,7 +149,7 @@ class MainActivity : AppCompatActivity() {
 
     // 選択されたアイテムを渡す
     private fun getSelectItem(): IntArray {
-        val selected = IntArray(15, {-1})
+        val selected = IntArray(NUM_OF_YEARS + 3, {-1})
         selected[0] = spinner_range.selectedItemPosition    // 出題範囲
         selected[1] = spinner_num.selectedItemPosition      // 出題数
         selected[2] = spinner_random.selectedItemPosition   // ランダム設定

@@ -31,7 +31,7 @@ class ResultActivity : AppCompatActivity() {
 
         // ビューの設定
         val correctNum = correctArray.count{ it == 1 }
-        text_res_correct_rate.text = "正解率：${ (correctNum.toDouble() / correctArray.size.toDouble()) * 100 }%"
+        text_res_correct_rate.text = "正解率：${ round((correctNum.toDouble() / correctArray.size.toDouble()) * 100).toInt() }%"
         text_res_correct_num.text = "(${correctNum}問 / ${correctArray.size}問中)"
 
         // RecyclerView

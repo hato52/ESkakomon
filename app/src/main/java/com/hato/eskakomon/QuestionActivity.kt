@@ -21,6 +21,8 @@ import kotlinx.android.synthetic.main.activity_question.*
 
 class QuestionActivity : AppCompatActivity() {
 
+    private val NUM_OF_YEARS = 13   /* 問題を追加した際にはここの値も増やす */
+
     private lateinit var realm: Realm
     private var qIt: Int = 0                            // 出題リスト参照用イテレータ
     private lateinit var correctArray: IntArray         // 回答の正誤リスト(-1:回答なし, 0:不正解, 1:正解)
@@ -124,7 +126,7 @@ class QuestionActivity : AppCompatActivity() {
         // 出題年度
         if (param[3] == 0) {    // 全年度出題にチェックが入っていなければ実行
             val yearsList: MutableList<Int> = mutableListOf()
-            for (i in 4..14) {
+            for (i in 4..NUM_OF_YEARS + 2) {
                 if (param[i] == 1) {
                     yearsList.add(i + 17)
                 }
@@ -213,7 +215,12 @@ class QuestionActivity : AppCompatActivity() {
         }
 
         // 問題出典
-        text_q_info.text = "(平成${results[it]?.year}年度 第${results[it]?.number}問)"
+        // 元号判定
+        if (results[it]?.year != null && results[it]?.year!!.toInt() <= 31) {
+            text_q_info.text = "(平成${results[it]?.year}年度 第${results[it]?.number}問)"
+        } else {
+            text_q_info.text = "(令和${(results[it]?.year!!.toInt()) - 30}年度 第${results[it]?.number}問)"
+        }
 
         // チェック
         if (locCheckArray[it] == 1) {

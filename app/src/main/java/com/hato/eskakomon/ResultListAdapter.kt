@@ -26,7 +26,14 @@ class ResultListAdapter
     // テキストビューに渡されたテキストを設定
     override fun onBindViewHolder(holder: ResultViewHolder, position: Int) {
         holder.numText.text = (position + 1).toString()
-        holder.yearText.text = "平成${year[position]}年 第${num[position]}問"
+
+        // 元号判定
+        if (year[position] <= 31) {
+            holder.yearText.text = "平成${year[position]}年 第${num[position]}問"
+        } else {
+            holder.yearText.text = "令和${year[position] - 30}年 第${num[position]}問"
+        }
+
         when (correct[position]) {
             -1 -> holder.correctText.text = "-"
              0 -> {

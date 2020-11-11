@@ -175,6 +175,17 @@
                         android:checked="true" />
 
                     <CheckBox
+                        android:id="@+id/check_32"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:text="@string/year_32"
+                        android:theme="@style/MyCheckBox"
+                        android:onClick="onYearClicked" />
+
+                    <CheckBox
                         android:id="@+id/check_31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

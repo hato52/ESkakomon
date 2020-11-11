@@ -22,7 +22,13 @@ class SelectedQuestionListAdapter(private val year: IntArray, private val num: I
     }
 
     override fun onBindViewHolder(holder: SelectedQuestionViewHolder, position: Int) {
-        holder.yearText.text = "平成${year[position]}年 第${num[position]}問"
+
+        // 元号判定
+        if (year[position] <= 31) {
+            holder.yearText.text = "平成${year[position]}年 第${num[position]}問"
+        } else {
+            holder.yearText.text = "令和${year[position] - 30}年 第${num[position]}問"
+        }
 
         // アイコンの変更
         when (mode) {

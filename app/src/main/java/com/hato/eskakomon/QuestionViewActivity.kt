@@ -74,7 +74,12 @@ class QuestionViewActivity : AppCompatActivity() {
         }
 
         // 問題出典
-        text_qview_q_info.text = "(平成${result.year}年度 第${result.number}問)"
+        if (result.year <= 31) {
+            text_qview_q_info.text = "(平成${result.year}年度 第${result.number}問)"
+        } else {
+            text_qview_q_info.text = "(令和${result.year - 30}年度 第${result.number}問)"
+        }
+
 
         // 画像表示
         if (result.image_path.isNotEmpty()) {
