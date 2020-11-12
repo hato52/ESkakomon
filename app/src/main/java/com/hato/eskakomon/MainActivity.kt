@@ -23,7 +23,8 @@ import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
 
 class MainActivity : AppCompatActivity() {
 
-    private val NUM_OF_YEARS = 13   /* 問題を追加した際にはここの値も増やす */
+    private val NUM_OF_YEARS = 13           /* 問題を追加した際にはここの値も増やす */
+    private val NUM_OF_OLD_QUESTION = 275   /* アップデート前の問題数、問題追加の度に変更する */
 
     private lateinit var realm: Realm
     private var years: Array<Boolean> = Array(NUM_OF_YEARS, {false})      // チェックボックス管理用
@@ -58,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-//        initialize(true)        // テスト用初期化処理
+        initialize(false)        // テスト用初期化処理
 
         // チェックボックスの初期設定
         years[0] = true
@@ -226,19 +227,38 @@ class MainActivity : AppCompatActivity() {
                 var i = 0
                 sentencesList.forEach { sentences ->
                     val data: List<String> = sentences.split(",")
-                    try {
-                        realm.executeTransaction {
-                            questions[i]?.year = Integer.parseInt(data[1])
-                            questions[i]?.number = Integer.parseInt(data[2])
-                            questions[i]?.sentence = data[3]
-                            questions[i]?.choice_a = data[4]
-                            questions[i]?.choice_i = data[5]
-                            questions[i]?.choice_u = data[6]
-                            questions[i]?.choice_e = data[7]
-                            questions[i]?.answer = data[8]
-                            questions[i]?.image_path = data[9]
-                        }
-                    } catch (e: Exception) {}
+                    if (i < NUM_OF_OLD_QUESTION) {      /* 既にある問題については更新 */
+                        try {
+                            realm.executeTransaction {
+                                questions[i]?.year = Integer.parseInt(data[1])
+                                questions[i]?.number = Integer.parseInt(data[2])
+                                questions[i]?.sentence = data[3]
+                                questions[i]?.choice_a = data[4]
+                                questions[i]?.choice_i = data[5]
+                                questions[i]?.choice_u = data[6]
+                                questions[i]?.choice_e = data[7]
+                                questions[i]?.answer = data[8]
+                                questions[i]?.image_path = data[9]
+                            }
+                        } catch (e: Exception) {}
+                    } else {                            /* 新規で追加された問題は登録 */
+                        try {
+                            realm.executeTransaction {
+                                val q = realm.createObject(Question::class.java, data[0])
+                                q.year = Integer.parseInt(data[1])
+                                q.number = Integer.parseInt(data[2])
+                                q.sentence = data[3]
+                                q.choice_a = data[4]
+                                q.choice_i = data[5]
+                                q.choice_u = data[6]
+                                q.choice_e = data[7]
+                                q.answer = data[8]
+                                q.image_path = data[9]
+                                q.miss = 0
+                                q.check = 0
+                            }
+                        } catch (e: Exception) {}
+                    }
                     i++
                 }
             }
