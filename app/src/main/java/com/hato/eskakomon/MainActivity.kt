@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        initialize(false)        // テスト用初期化処理
+//        initialize(false)        // テスト用初期化処理
 
         // チェックボックスの初期設定
         years[0] = true
